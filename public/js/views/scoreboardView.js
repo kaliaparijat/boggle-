@@ -1,9 +1,9 @@
-var app = app || {};
+app = app || {};
 
 (function ($) {
 	'use strict';
   app.ScoreBoardView = Backbone.View.extend({
-    el: '#scoreboard',
+    el: '#scoreboard thead',
     total: 0,
 
     template: function(params) {
@@ -28,7 +28,8 @@ var app = app || {};
     },
 
     render: function() {
-      $(this.el).append(this.template({word: this.word, score: this.score, total: this.total}));
+      $(this.el).after(this.template({word: this.word, score: this.score}));
+			$('#totalScore').text(this.total);
     }
   });
 })(jQuery);

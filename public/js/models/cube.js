@@ -5,6 +5,7 @@ var app = app || {};
   app.Cube = Backbone.Model.extend({
 
     initialize: function(attributes) {
+			var randChar;
       this.letters = attributes['letters'];
       this.x = attributes['x']; //co-ordinates in the grid
       this.y = attributes['y'];

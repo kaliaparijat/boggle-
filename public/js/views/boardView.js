@@ -1,8 +1,8 @@
-var app = app || {};
+app = app || {};
 
 (function ($) {
 	'use strict';
-  app.BoggleBoardApp = Backbone.View.extend({
+  app.BoggleBoardView = Backbone.View.extend({
 
   el: '#boggleboard',
   word: [], // char array for current word
@@ -53,19 +53,19 @@ var app = app || {};
   },
 
   updateBoard: function() {
-    var score, wordLength = this.word.length, tmpl, params, scoreboardView
+    var score, wordLength = this.word.length, tmpl, params, scoreboardView;
     if(wordLength >= 8) {
       score = 11;
     }
-    else {
+    else if (wordLength > 0){
       score = this.scoreMap[wordLength];
-    }
-    if(this.scoreBoardView === undefined) {
-      this.scoreBoardView = new app.ScoreBoardView({word: this.liveWord(), score: score});
-    }
-    else {
-      this.scoreBoardView.updateBoard({word: this.liveWord(), score: score});
-    }
+		}
+		if(this.scoreBoardView === undefined) {
+			this.scoreBoardView = new app.ScoreBoardView({word: this.liveWord(), score: score});
+		}
+		else {
+			this.scoreBoardView.updateBoard({word: this.liveWord(), score: score});
+		}
   },
 
   liveWord: function() {
@@ -143,6 +143,5 @@ var app = app || {};
     this.word.push(_.clone(this.current));
     return this;
   }
-
 });
 })(jQuery);

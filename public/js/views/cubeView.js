@@ -1,4 +1,4 @@
-var app = app || {};
+app = app || {};
 
 (function ($) {
 	'use strict';

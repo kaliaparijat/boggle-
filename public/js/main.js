@@ -1,6 +1,5 @@
-var app = app || {}
-(function(){
-
-  app.main = new app.BoggleBoardApp({collection: new app.Board()});
-
-})();
+app = app || {};
+(function ($) {
+	'use strict';
+  new app.BoggleBoardView({collection: new app.Board()});
+})(jQuery);

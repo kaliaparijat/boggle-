@@ -1,5 +1,6 @@
-var app = app || {}
+app = app || {};
 (function ($) {
+  'use strict';
   app.Board = Backbone.Collection.extend({
 
     dices: [

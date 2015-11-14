@@ -26,6 +26,14 @@
             <th> Score </th>
           </tr>
         </thead>
+
+        <tfoot>
+        <tr>
+          <td>Total score</td>
+          <td id="totalScore">0</td>
+        </tr>
+        </tfoot>
+
       </table>
   </div>
 
@@ -34,7 +42,6 @@
       <td>{{word}}</td>
       <td>{{score}}</td>
     </tr>
-    
   </script>
 
   <script id="cell-template" type="text/x-handlebars-template">
