@@ -1,0 +1,58 @@
+<!doctype html>
+<head>
+<title>Boggle</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div id = "boggleboard">
+    <div id="logo-container">
+      <img src="images/logo.png">
+    </div>
+
+    <div class = "gridrows">
+    </div>
+
+    <div class= "display">
+      <input type = "submit" value = "Submit Word" id="submit"/>
+      <div class="currentWord">
+        <span>Current word: </span> <span class="liveWord"></span>
+      </div>
+      <div class="clearfix"></div>
+      <table id="scoreboard" cellspacing ="10">
+        <thead>
+          <tr>
+            <th> Word </th>
+            <th> Score </th>
+          </tr>
+        </thead>
+      </table>
+  </div>
+
+  <script id = "score-board-row" type = "text/x-handlebars-template">
+    <tr>
+      <td>{{word}}</td>
+      <td>{{score}}</td>
+    </tr>
+    
+  </script>
+
+  <script id="cell-template" type="text/x-handlebars-template">
+    <div class = "cell" data-x="{{x}}", data-y="{{y}}" data-char="{{frontface}}">
+      {{frontface}}
+    </div>
+  </script>
+
+  <script src="https://code.jquery.com/jquery-1.8.3.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  <script src="js/models/cube.js"></script>
+  <script src="js/collections/board.js"></script>
+  <script src="js/views/cubeView.js"></script>
+  <script src="js/views/scoreboardView.js"></script>
+  <script src="js/views/boardView.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
