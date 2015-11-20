@@ -10,13 +10,13 @@ app = app || {};
         "dhlnor", "dhlnor", "eiiitt", "emottt", "ensssu",
         "fiprsy", "gorrvw", "iprrry", "nootuw", "ooottu"
     ],
-
+    
     initialize: function() {
-      var i, j, k = 0, current;
-      this.models = [null, null, null, null, null]; // models will initially be a 5X5 multi array
-        for(i = 0; i < this.models.length; i++) {
+      var i, j, k = 0;
+      this.models = []; // models will initially be a 5X5 multi array
+        for(i = 0; i < 5; i++) {
           this.models[i] = [];
-          for(j = 0; j < this.models.length; j++) {
+          for(j = 0; j < 5; j++) {
             this.models[i].push(new app.Cube({letters: this.dices[k++], x: i, y: j})); // so that co-ordinates are easy
           }
         }
