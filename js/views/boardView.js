@@ -5,9 +5,13 @@ app = app || {};
   app.BoggleBoardView = Backbone.View.extend({
 
   el: '#boggleboard',
+
   word: [], // char array for current word
+
   list:[],  // all words go into this list
+
   current: {}, // internal storage for currentcell (or last selected?)
+
   scoreMap: {
      1: 0,
      2: 0,
@@ -68,25 +72,17 @@ app = app || {};
 		}
   },
 
-  liveWord: function() {
-    var word = "";
-    _.each(this.word, function(current) {
-      word += current['char'];
-    });
-    return word;
-  },
-
   select: function(event){
-    var cell, x, y;
-    cell = event.currentTarget;
-    x = Number($(cell).data("x"));
-    y = Number($(cell).data("y"));
+    var cell = event.currentTarget,
+		x = Number($(cell).data("x")),
+		y = Number($(cell).data("y")),
+		addHighlightClass = true;
 
-    if(this.isCurrent(x, y)) { // unselecting a cell
-      this.removeCurrent().toggleHighlightClass(cell).displayLiveWord();
+    if(this.isLastSelected(x, y)) { // this implies the select event is to un-select a selected cell
+			return this.removeCurrent().toggleHighlightClass(cell, !addHighlightClass).displayLiveWord();
     }
-    else if(_.isEmpty(this.current) || this.isNeighbor(x, y)) {
-      this.setCurrent(cell, x, y).toggleHighlightClass(cell).displayLiveWord();
+    else if(_.isEmpty(this.current) || this.isNeighbor(x, y) && !$(cell).hasClass('highlight')) {
+		  return	this.setCurrent(cell, x, y).toggleHighlightClass(cell, addHighlightClass).displayLiveWord();
     }
   },
 
@@ -95,40 +91,43 @@ app = app || {};
     return this;
   },
 
-  isCurrent: function(x, y) {
-    if(this.current['x'] === x && this.current['y'] === y) {
-      return true;
-    }
-    return false;
+	liveWord: function() {
+    var word = "";
+    _.each(this.word, function(current) {
+      word = word.concat(current['char']);
+    });
+    return word;
   },
 
-  toggleHighlightClass: function(cell) {
-    if($(cell).hasClass('highlight')) {
-      $(cell).removeClass('highlight');
-    }
-    else {
+  isLastSelected: function(x, y) {
+   return this.current['x'] === x && this.current['y'] === y;
+  },
+
+  toggleHighlightClass: function(cell, add) {
+		if(add === true) {
       $(cell).addClass('highlight');
     }
-    return this;
+		else if(add === false) {
+      $(cell).removeClass('highlight');
+    }
+ 		return this;
   },
 
   isNeighbor: function(new_x, new_y) {
-    var curr_x = this.current['x'], curr_y = this.current['y'], diff_x, diff_y
+    var curr_x = this.current['x'], curr_y = this.current['y'], diff_x, diff_y;
 
     diff_x = (curr_x >= new_x) ? curr_x - new_x : new_x - curr_x;
     diff_y = (curr_y >= new_y) ? curr_y - new_y : new_y - curr_y;
 
-    if (diff_x > 1 || diff_y > 1) {
-      return false;
-    }
-    return true;
+		// difference between two neighbor cell co-ordinates will never be greater than 1
+		return !(diff_x > 1 || diff_y > 1);
   },
 
   removeCurrent: function() {
     this.word.pop();
-    var wordLength = this.word.length;
-    if(wordLength > 0) {
-      this.current = _.clone(this.word[wordLength - 1]);
+    if(this.word.length > 0) {
+			// copy by value & not reference
+      this.current = _.clone(this.word[this.word.length - 1]);
     }
     else {
       this.current = {};
@@ -140,7 +139,7 @@ app = app || {};
     this.current['x'] = x;
     this.current['y'] = y;
     this.current['char'] = $(cell).data('char');
-    this.word.push(_.clone(this.current));
+    this.word.push(_.clone(this.current)); // copy by value & not reference
     return this;
   }
 });

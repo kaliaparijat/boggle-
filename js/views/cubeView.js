@@ -3,7 +3,8 @@ app = app || {};
 (function ($) {
 	'use strict';
    app.CubeView = Backbone.View.extend({
-    template:  '#cell-template',
+
+	  template:  '#cell-template',
 
     initialize: function() {
       this.render();

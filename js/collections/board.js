@@ -10,17 +10,17 @@ app = app || {};
         "dhlnor", "dhlnor", "eiiitt", "emottt", "ensssu",
         "fiprsy", "gorrvw", "iprrry", "nootuw", "ooottu"
     ],
-    
+
     initialize: function() {
       var i, j, k = 0;
-      this.models = []; // models will initially be a 5X5 multi array
+      this.models = [];
         for(i = 0; i < 5; i++) {
-          this.models[i] = [];
+          this.models[i] = [];// initialize models as a 2D array to get x-y coordinates
           for(j = 0; j < 5; j++) {
-            this.models[i].push(new app.Cube({letters: this.dices[k++], x: i, y: j})); // so that co-ordinates are easy
+            this.models[i].push(new app.Cube({letters: this.dices[k++], coordinates: [i, j] }));
           }
         }
-        this.models = _.flatten(this.models); // convert it back to a single array
+        this.models = _.flatten(this.models); // converting it back to a 1-D array
       }
   });
 })(jQuery);
